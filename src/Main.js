@@ -1,12 +1,11 @@
 import {React, useState} from 'react';
 import styled from "styled-components"
-import { Route, useHistory } from "react-router-dom"
-import RatingMon from "./RatingMon"
+import { Link } from "react-router-dom"
 
 
 const Main = (props) => {
-  const mon = useHistory();
   
+
   // 7개의 랜덤한 숫자 배열 만들기
   let randomNumList = [];
   for(let i=0; i<7; i++){
@@ -28,76 +27,15 @@ const Main = (props) => {
       <>
       <Title>내 일주일은?</Title>
       <DaysCircleWrap>
-        <CircleWrap>
-          <span>월</span>
+        {Array.from({length:7}, (m,k) => {
+          return <CircleWrap key={k} > <span>{props.week[k]}</span>
           {Array.from({length:5}, (n,j) => {
               return <Circle key={j} 
-              style={{backgroundColor: j <= randomNumList[0] ? 'red' : '#ddd'}}></Circle>
+              style={{backgroundColor: j <= randomNumList[k] ? 'red' : '#ddd'}}></Circle>
           })}
-          <Tri onClick={()=>{
-            mon.push("./mon")
-          }}></Tri>
+          <Link to = {"/day/"+ props.week_en[k]}><Tri key={k}></Tri></Link>
         </CircleWrap>
-        <CircleWrap>
-          <span>화</span>
-          {Array.from({length:5}, (n,j) => {
-              return <Circle key={j} 
-              style={{backgroundColor: j <= randomNumList[1] ? 'red' : '#ddd'}}></Circle>
-          })}
-          <Tri onClick={()=>{
-            mon.push("./mon")
-          }}></Tri>
-        </CircleWrap>
-        <CircleWrap>
-          <span>수</span>
-          {Array.from({length:5}, (n,j) => {
-              return <Circle key={j} 
-              style={{backgroundColor: j <= randomNumList[2] ? 'red' : '#ddd'}}></Circle>
-          })}
-          <Tri onClick={()=>{
-            mon.push("./mon")
-          }}></Tri>
-        </CircleWrap>
-        <CircleWrap>
-          <span>목</span>
-          {Array.from({length:5}, (n,j) => {
-              return <Circle key={j} 
-              style={{backgroundColor: j <= randomNumList[3] ? 'red' : '#ddd'}}></Circle>
-          })}
-          <Tri onClick={()=>{
-            mon.push("./mon")
-          }}></Tri>
-        </CircleWrap>
-        <CircleWrap>
-          <span>금</span>
-          {Array.from({length:5}, (n,j) => {
-              return <Circle key={j} 
-              style={{backgroundColor: j <= randomNumList[4] ? 'red' : '#ddd'}}></Circle>
-          })}
-          <Tri onClick={()=>{
-            mon.push("./mon")
-          }}></Tri>
-        </CircleWrap>
-        <CircleWrap>
-          <span>토</span>
-          {Array.from({length:5}, (n,j) => {
-              return <Circle key={j} 
-              style={{backgroundColor: j <= randomNumList[5] ? 'red' : '#ddd'}}></Circle>
-          })}
-          <Tri onClick={()=>{
-            mon.push("./mon")
-          }}></Tri>
-        </CircleWrap>
-        <CircleWrap>
-          <span>일</span>
-          {Array.from({length:5}, (n,j) => {
-              return <Circle key={j} 
-              style={{backgroundColor: j <= randomNumList[6] ? 'red' : '#ddd'}}></Circle>
-          })}
-          <Tri onClick={()=>{
-            mon.push("./mon")
-          }}></Tri>
-        </CircleWrap> 
+        })}
       </DaysCircleWrap>
 
       <Rating>
